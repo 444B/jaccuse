@@ -44,7 +44,7 @@ def main():
                         counter += 1
                         print(counter)
                         update_display(counter, duration)
-                        # Code fucks up here on the next if cycle, it doesn't seems to wait for a key press, breaking the counter
+                        # Code fucks up here on the next if cycle, it seems to wait for a key press, breaking the counter
                         # I tried to Continue but that didnt help
                         if not kbfunc():
                             continue
