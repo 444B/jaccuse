@@ -1,21 +1,19 @@
 from time import sleep
 from sense_hat import SenseHat
-
 sense = SenseHat()
-sense.scroll_speed = 0.05
-sense.clear(0, 255, 255)  # Blue
 
 
 """
 
   Jaccuse!
 
-  A way to keep track of how long it has been since you have been jaccused.
+  A way to keep track of how long it has been since you have been jaccused of something.
 
 """
 
 def get_orientation():
-    '''Get the orientation of the Pi, using an arrow'''
+    '''Set the orientation of the Pi, using an question mark.
+    Use the Sense Hat buttons to pick the orientation'''
     sense.clear()
     flipped = True
     arrow = "^"
@@ -27,34 +25,30 @@ def get_orientation():
             if event.action == "pressed":
 
                 # Check which direction
-                if event.direction == "up": # Up arrow
+                if event.direction == "up": # Up button
                     sense.set_rotation(0)
                     sense.show_letter(arrow)
-                elif event.direction == "down": # Down arrow
+                elif event.direction == "down": # Down button
                     sense.set_rotation(180)
                     sense.show_letter(arrow)
-                elif event.direction == "left":
+                elif event.direction == "left": # Left button
                     sense.set_rotation(90)
                     sense.show_letter(arrow)
-                elif event.direction == "right":
+                elif event.direction == "right": # Right button
                     sense.set_rotation(270)
                     sense.show_letter(arrow)
-                
-
                 elif event.direction == "middle": # Enter key
-                    flipped = False
+                    flipped = False # exits the loop
 
-
-    
 
 def get_duration():
     ''' Gets the duration from the user, returning a string'''
-    sense.clear()
-    duration_list = ["s", "m", "h", "d"]
-    sense.show_message(duration_list) # show options in the list
+    sense.clear() # clears LED screen
+    duration_list = ["second", "minute", "hour", "day"] # list of time options
     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
     choice = ""
     loop = True
+    sense.show_message("Please use the buttons to select duration", scroll_speed=0.025)
     sense.show_message(duration_list[pointer]) # show the first item in the list
     while loop is True:
         for event in sense.stick.get_events():
@@ -74,8 +68,6 @@ def get_duration():
                     choice = duration_list[pointer]
                     sense.clear()
                     loop = False
-
-
     return choice
 
 def update_display(counter, duration):
@@ -102,22 +94,22 @@ def main():
 
     while main_loop is True:
         while halt_button_pressed is False:
-            if duration == "s":
+            if duration == "second":
+                update_display(counter, duration)
                 sleep(1)
                 counter += 1
+            elif duration == "minute":
                 update_display(counter, duration)
-            elif duration == "m":
                 sleep(60)
                 counter += 1
+            elif duration == "hour":
                 update_display(counter, duration)
-            elif duration == "h":
                 sleep(3600)
                 counter += 1
+            elif duration == "day":
                 update_display(counter, duration)
-            elif duration == "d":
                 sleep(86400)
                 counter += 1
-                update_display(counter, duration)
             else:
                 print("error")
                 break
