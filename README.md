@@ -39,9 +39,5 @@ The counter will now begin from zero and count up. Note that after 10, things ge
 
 ## 4. PROFIT
 
-
-# TODO
-- Add a button that restarts the timer
-- Bring value to stakeholders
-- Add a way to logg the frequency of restarts
-- Find a way to show double digits. Currently single digits work perfectly but double digits scroll past (owing to the difference in sense.show_letter() and sense.show_message(). Work in Progress
+# How to contribute
+- Check out the [Project Board](https://github.com/users/444B/projects/1/views/1?layout=board) for issues and things to fix / add
