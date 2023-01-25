@@ -1,5 +1,6 @@
 # jaccuse
 A simple python script to countdown the number since [event]
+![Image](https://user-images.githubusercontent.com/15311579/214655423-8da5e44b-fbb2-4bb4-b9ef-6464e25b29cf.png)
 
 Fun fact: You dont need a physical pi to develop this!  
 You can run the main.py script in [Trinket.io](https://trinket.io/sense-hat) to emulate a raspberry pi with a sense hat :)  
