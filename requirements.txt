@@ -1,0 +1,2 @@
+sense_hatanyio==3.6.2
+sense-hat==2.4.0
