@@ -40,4 +40,4 @@ The counter will now begin from zero and count up. Note that after 10, things ge
 ## 4. PROFIT
 
 # How to contribute
-- Check out the [Project Board](https://github.com/users/444B/projects/1/views/1?layout=board) for issues and things to fix / add
+- Check out the [Project Board](https://github.com/users/444B/projects/1/views/2?layout=board) for issues and things to fix / add
