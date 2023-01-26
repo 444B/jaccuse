@@ -25,6 +25,18 @@ sudo apt update && sudo apt install sense-hat -y
 python3 ~/jaccuse/main.py
 ```
 
+### 4. (Optional) - add the python script to start up on physical pi startup
+open /etc/rc.local  
+```shell
+sudo nano /etc/rc.local
+```
+add the following in, right before the bottom line that says "return 0"  
+
+```shell
+python3 $HOME/jaccuse/main.py &
+```
+
+
 # Documentation
 ### 1. Orientation.  
 You should see a "?" displayed. Use the Sense pi button (or arrow keys if emulated on trinket) to face the question make the right way  
