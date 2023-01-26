@@ -46,7 +46,7 @@ def get_orientation():
 def get_duration():
     ''' Gets the duration from the user, returning a string'''
     sense.clear() # clears LED screen
-    duration_list = ["second", "minute", "hour", "day"] # list of time options
+    duration_list = ["sec", "min", "hour", "day"] # list of time options
     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
     choice = ""
     loop = True
@@ -96,11 +96,11 @@ def main():
 
     while main_loop is True:
         while halt_button_pressed is False:
-            if duration == "second":
+            if duration == "sec":
                 update_display(counter, duration)
                 sleep(1)
                 counter += 1
-            elif duration == "minute":
+            elif duration == "min":
                 update_display(counter, duration)
                 sleep(60)
                 counter += 1
