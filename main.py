@@ -8,6 +8,7 @@ sense = SenseHat()
   Jaccuse!
 
   A way to keep track of how long it has been since you have been jaccused of something.
+  Run this in https://trinket.io/sense-hat to emulate a pi sense-hat.
 
 """
 
@@ -16,6 +17,7 @@ def get_orientation():
     Use the Sense Hat buttons to pick the orientation'''
     sense.clear()
     flipped = True
+    direction_dict = {"up": 0, "down": 180, "left": 90, "right": 270}
     arrow = "^"
     while flipped is True:
         sense.show_letter(arrow)
@@ -26,16 +28,16 @@ def get_orientation():
 
                 # Check which direction
                 if event.direction == "up": # Up button
-                    sense.set_rotation(0)
+                    sense.set_rotation(direction_dict[event.direction])
                     sense.show_letter(arrow)
                 elif event.direction == "down": # Down button
-                    sense.set_rotation(180)
+                    sense.set_rotation(direction_dict[event.direction])
                     sense.show_letter(arrow)
                 elif event.direction == "left": # Left button
-                    sense.set_rotation(90)
+                    sense.set_rotation(direction_dict[event.direction])
                     sense.show_letter(arrow)
                 elif event.direction == "right": # Right button
-                    sense.set_rotation(270)
+                    sense.set_rotation(direction_dict[event.direction])
                     sense.show_letter(arrow)
                 elif event.direction == "middle": # Enter key
                     flipped = False # exits the loop
@@ -48,8 +50,8 @@ def get_duration():
     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
     choice = ""
     loop = True
-    sense.show_message("Please use the buttons to select duration", scroll_speed=0.025)
-    sense.show_message(duration_list[pointer]) # show the first item in the list
+    sense.show_message("Duration?", scroll_speed=0.05)
+    sense.show_message(duration_list[pointer], scroll_speed=0.05) # show the first item in the list
     while loop is True:
         for event in sense.stick.get_events():
             # Check if the joystick was pressed
@@ -58,12 +60,12 @@ def get_duration():
                 # Check which direction
                 if event.direction == "left": # Left arrow
                     pointer -= 1
-                    sense.show_message(duration_list[pointer])
+                    sense.show_message(duration_list[pointer], scroll_speed=0.05)
                 elif event.direction == "right": # Right arrow
                     pointer += 1
                     if pointer == len(duration_list):
                         pointer = 0
-                    sense.show_message(duration_list[pointer])
+                    sense.show_message(duration_list[pointer], scroll_speed=0.05)
                 elif event.direction == "middle": # Enter key
                     choice = duration_list[pointer]
                     sense.clear()
