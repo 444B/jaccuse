@@ -84,6 +84,14 @@ def update_display(counter, duration):
         sense.show_message(str(counter))
 
 
+def check_time_range(current_time_range, counter):
+    if current_time_range == "sec" and counter == 60:
+        return "min"
+    elif current_time_range == "min" and counter == 60:
+        return "hour"
+    elif current_time_range == "hour" and counter == 24:
+        return "day"
+
 
 def main():
     '''Main function, will get the duration and then start the timer.'''
@@ -106,14 +114,17 @@ def main():
                 update_display(counter, duration)
                 sleep(1)
                 counter += 1
+                current_time_range = check_time_range(current_time_range, counter)
             elif current_time_range == "min":
                 update_display(counter, duration)
                 sleep(60)
                 counter += 1
+                current_time_range = check_time_range(current_time_range, counter)
             elif current_time_range == "hour":
                 update_display(counter, duration)
                 sleep(3600)
                 counter += 1
+                current_time_range = check_time_range(current_time_range, counter)
             elif current_time_range == "day":
                 update_display(counter, duration)
                 sleep(86400)
