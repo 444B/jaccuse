@@ -92,30 +92,35 @@ def main():
     duration = get_duration() # string
     counter = 0
     halt_button_pressed = False
-    main_loop = True
+    # main_loop = True
+    time_ranges = ["sec", "min", "hour", "day"]
+    current_time_range = "sec"
 
-    while main_loop is True:
-        while halt_button_pressed is False:
-            if duration == "sec":
+    while True:
+        events = sense.stick.get_events()
+        if events:
+            if events[0].action == "pressed" and events[0].direction == "middle":
+                reset_counter()
+        else:
+            if current_time_range == "sec":
                 update_display(counter, duration)
                 sleep(1)
                 counter += 1
-            elif duration == "min":
+            elif current_time_range == "min":
                 update_display(counter, duration)
                 sleep(60)
                 counter += 1
-            elif duration == "hour":
+            elif current_time_range == "hour":
                 update_display(counter, duration)
                 sleep(3600)
                 counter += 1
-            elif duration == "day":
+            elif current_time_range == "day":
                 update_display(counter, duration)
                 sleep(86400)
                 counter += 1
             else:
                 print("error")
                 break
-
 
 
 
