@@ -10,12 +10,15 @@
 
 from time import sleep
 from sense_hat import SenseHat
-# from pixel_dict import *
+# from pixel_dict import all
 sense = SenseHat()
 
 
-# All these messy lists and dicts will be moved to a separate file after feature is working
-# it needs to be in one file for now to make it possible to test in trinket.io
+'''
+This is a dictionary of pixel maps for the 8x8 LED matrix.
+
+'''
+
 # colors
 O = (0, 0, 0) # off
 X = (255, 255, 255) # white
@@ -290,6 +293,8 @@ pixel_dict = {
         }
         }
 
+
+
 def get_orientation():
     '''Set the orientation of the Pi, using an question mark.
     Use the Sense Hat buttons to pick the orientation'''
@@ -327,9 +332,6 @@ def get_duration():
     ''' Gets the duration from the user, returning a string'''
     sense.clear() # clears LED screen
     duration_list = ["sec", "min", "hour", "day"] # list of time options
-
-
-    # Initial Variables
     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
     choice = ""
     loop = True
@@ -358,10 +360,12 @@ def get_duration():
 def update_display(counter, duration):
     ''' Updates the display with the counter and duration '''
 
-
-
-    sense.set_pixels(pixel_map)
-
+    if counter < 10: # we can use sense.show_letter for single digits
+        print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
+        sense.show_letter(str(counter))
+    elif counter >=10: #otherwise we need to use sense.show_message
+        print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
+        sense.show_message(str(counter))
 
 
 
