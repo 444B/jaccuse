@@ -1,8 +1,3 @@
-from time import sleep
-from sense_hat import SenseHat
-sense = SenseHat()
-
-
 """
 
   Jaccuse!
@@ -10,7 +5,16 @@ sense = SenseHat()
   A way to keep track of how long it has been since you have been jaccused of something.
   Run this in https://trinket.io/sense-hat to emulate a pi sense-hat.
 
+
 """
+
+from time import sleep
+from sense_hat import SenseHat
+sense = SenseHat()
+
+red = (255, 0, 0)
+
+
 
 def get_orientation():
     '''Set the orientation of the Pi, using an question mark.
@@ -22,6 +26,8 @@ def get_orientation():
     while flipped is True:
         sense.show_letter(arrow)
         for event in sense.stick.get_events():
+            print("Event: ", event)
+            print("Event type: ", type(event))
 
             # Check if the joystick was pressed
             if event.action == "pressed":
@@ -79,7 +85,6 @@ def update_display(counter, duration):
         print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
         sense.show_letter(str(counter))
     elif counter >=10: #otherwise we need to use sense.show_message
-        #TODO sense.show_message scrolls the value so we need to freeze it
         print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
         sense.show_message(str(counter))
 
@@ -87,34 +92,41 @@ def update_display(counter, duration):
 
 def main():
     '''Main function, will get the duration and then start the timer.'''
-    #TODO add a way to stop the timer by pressing the button
+    main_loop = True
+    halt_button_pressed = False
     get_orientation()
     duration = get_duration() # string
-    counter = 0
-    halt_button_pressed = False
-    main_loop = True
-
     while main_loop is True:
+        counter = 0
+        halt_button_pressed = False
         while halt_button_pressed is False:
-            if duration == "sec":
-                update_display(counter, duration)
-                sleep(1)
-                counter += 1
-            elif duration == "min":
-                update_display(counter, duration)
-                sleep(60)
-                counter += 1
-            elif duration == "hour":
-                update_display(counter, duration)
-                sleep(3600)
-                counter += 1
-            elif duration == "day":
-                update_display(counter, duration)
-                sleep(86400)
-                counter += 1
+            events = sense.stick.get_events()
+            if events:
+                for button in events:
+                    if button.direction ==  "middle" and button.action == "pressed":
+                        counter = 0
+                        halt_button_pressed = True
+
             else:
-                print("error")
-                break
+                if duration == "sec":
+                    update_display(counter, duration)
+                    sleep(1)
+                    counter += 1
+                elif duration == "min":
+                    update_display(counter, duration)
+                    sleep(60)
+                    counter += 1
+                elif duration == "hour":
+                    update_display(counter, duration)
+                    sleep(3600)
+                    counter += 1
+                elif duration == "day":
+                    update_display(counter, duration)
+                    sleep(86400)
+                    counter += 1
+                else:
+                    print("error")
+                    break
 
 
 
