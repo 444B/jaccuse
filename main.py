@@ -16,8 +16,17 @@ sense = SenseHat()
 
 
 def get_orientation():
-    '''Set the orientation of the Pi, using an question mark.
-    Use the Sense Hat buttons to pick the orientation'''
+    '''
+    Description:
+        Set the orientation of the Pi, using an question mark.
+        Use the Sense Hat buttons to pick the orientation
+    Inputs:
+        - None
+
+    Outputs:
+        - None
+    
+    '''
     sense.clear()
     flipped = True
     direction_dict = {"up": 0, "down": 180, "left": 90, "right": 270}
@@ -47,7 +56,16 @@ def get_orientation():
 
 
 def get_duration():
-    ''' Gets the duration from the user, returning a string'''
+    '''
+    Description:
+        Gets the duration from the user, returning a string
+    Inputs:
+        - None
+
+    Outputs:
+        - choice: string
+    
+    '''
     sense.clear() # clears LED screen
     duration_list = ["sec", "min", "hour", "day"] # list of time options
     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
@@ -77,7 +95,18 @@ def get_duration():
 
 # overwrite the values in question_mark with the values in all_x
 def change(canvas, paint):
-    ''' Changes the pixel map by using points as paint'''
+    '''
+    Description:
+        Changes the pixel map by using points as pain
+
+    Inputs:
+        - canvas: list
+        - paint: list
+
+    Outputs:
+    - list
+
+    '''
     # TODO this code is working (Somehow!) and not efficient at all
     # 128 comparisons for each painting, 3 paintings = 384 comparisons every iteration
     # this happens either every second or minute or hour or day, depending on choice
@@ -94,7 +123,18 @@ def change(canvas, paint):
 
 
 def update_display(counter, duration):
-    ''' Updates the display with the counter and duration '''
+    '''
+    Description:
+        Updates the display with the counter and duration
+        
+    Inputs:
+        - counter: Int
+        - duration: Str
+
+    Outputs:
+        - None
+    
+    '''
     sense.clear()
     string_counter = str(counter)
     canvas = pixel_map
@@ -125,7 +165,18 @@ def update_display(counter, duration):
 
 
 def main():
-    '''Main function, will get the duration and then start the timer.'''
+    '''
+    Description:
+        1. Will get the duration and then 
+        2. start the timer
+        
+    Inputs:
+        - None
+
+    Outputs:
+        - None
+    
+    '''
     main_loop = True
     halt_button_pressed = False
     get_orientation()
