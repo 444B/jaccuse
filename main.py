@@ -55,46 +55,6 @@ def get_orientation():
                 elif event.direction == "middle": # Enter key
                     flipped = False # exits the loop
 
-
-# def get_duration():
-#     '''
-#     Description:
-#         Gets the duration from the user, returning a string
-#     Inputs:
-#         - None
-
-#     Outputs:
-#         - choice: string
-
-#     '''
-#     sense.clear() # clears LED screen
-#     duration_list = ["sec", "min", "hour", "day"] # list of time options
-#     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
-#     choice = ""
-#     loop = True
-#     # sense.show_message("Duration?", scroll_speed=0.05)
-#     sense.show_message(duration_list[pointer], scroll_speed=0.05) # show the first item in the list
-#     while loop is True:
-#         for event in sense.stick.get_events():
-#             # Check if the joystick was pressed
-#             if event.action == "pressed":
-
-#                 # Check which direction
-#                 if event.direction == "left": # Left arrow
-#                     pointer -= 1
-#                     sense.show_message(duration_list[pointer], scroll_speed=0.05)
-#                 elif event.direction == "right": # Right arrow
-#                     pointer += 1
-#                     if pointer == len(duration_list):
-#                         pointer = 0
-#                     sense.show_message(duration_list[pointer], scroll_speed=0.05)
-#                 elif event.direction == "middle": # Enter key
-#                     choice = duration_list[pointer]
-#                     sense.clear()
-#                     loop = False
-#     return choice
-
-# overwrite the values in question_mark with the values in all_x
 def change(canvas, paint):
     '''
     Description:
@@ -156,13 +116,6 @@ def update_display(counter, duration):
     sense.set_pixels(canvas3)
 
 
-    # if counter < 10: # we can use sense.show_letter for single digits
-    #     print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
-    #     sense.show_letter(str(counter))
-    # elif counter >=10: #otherwise we need to use sense.show_message
-    #     print("it has been "+ str(counter) + " " + duration + " since the button was pressed")
-    #     sense.show_message(str(counter))
-
 
 
 def main():
@@ -192,6 +145,8 @@ def main():
                 for button in events:
                     if button.direction ==  "middle" and button.action == "pressed":
                         counter = 0
+                        sense.clear(red)
+                        sleep(3)
                         halt_button_pressed = True
 
             else:
