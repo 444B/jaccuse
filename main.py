@@ -13,6 +13,7 @@ from time import sleep
 from sense_hat import SenseHat
 from pixel_dict import O, B, W, pixel_dict, pixel_map
 sense = SenseHat()
+red = (255, 0, 0)
 
 
 def get_orientation():
@@ -25,7 +26,7 @@ def get_orientation():
 
     Outputs:
         - None
-    
+
     '''
     sense.clear()
     flipped = True
@@ -55,43 +56,43 @@ def get_orientation():
                     flipped = False # exits the loop
 
 
-def get_duration():
-    '''
-    Description:
-        Gets the duration from the user, returning a string
-    Inputs:
-        - None
+# def get_duration():
+#     '''
+#     Description:
+#         Gets the duration from the user, returning a string
+#     Inputs:
+#         - None
 
-    Outputs:
-        - choice: string
-    
-    '''
-    sense.clear() # clears LED screen
-    duration_list = ["sec", "min", "hour", "day"] # list of time options
-    pointer = 0 # this pointer will be used to keep track of the users cycling of the list
-    choice = ""
-    loop = True
-    # sense.show_message("Duration?", scroll_speed=0.05)
-    sense.show_message(duration_list[pointer], scroll_speed=0.05) # show the first item in the list
-    while loop is True:
-        for event in sense.stick.get_events():
-            # Check if the joystick was pressed
-            if event.action == "pressed":
+#     Outputs:
+#         - choice: string
 
-                # Check which direction
-                if event.direction == "left": # Left arrow
-                    pointer -= 1
-                    sense.show_message(duration_list[pointer], scroll_speed=0.05)
-                elif event.direction == "right": # Right arrow
-                    pointer += 1
-                    if pointer == len(duration_list):
-                        pointer = 0
-                    sense.show_message(duration_list[pointer], scroll_speed=0.05)
-                elif event.direction == "middle": # Enter key
-                    choice = duration_list[pointer]
-                    sense.clear()
-                    loop = False
-    return choice
+#     '''
+#     sense.clear() # clears LED screen
+#     duration_list = ["sec", "min", "hour", "day"] # list of time options
+#     pointer = 0 # this pointer will be used to keep track of the users cycling of the list
+#     choice = ""
+#     loop = True
+#     # sense.show_message("Duration?", scroll_speed=0.05)
+#     sense.show_message(duration_list[pointer], scroll_speed=0.05) # show the first item in the list
+#     while loop is True:
+#         for event in sense.stick.get_events():
+#             # Check if the joystick was pressed
+#             if event.action == "pressed":
+
+#                 # Check which direction
+#                 if event.direction == "left": # Left arrow
+#                     pointer -= 1
+#                     sense.show_message(duration_list[pointer], scroll_speed=0.05)
+#                 elif event.direction == "right": # Right arrow
+#                     pointer += 1
+#                     if pointer == len(duration_list):
+#                         pointer = 0
+#                     sense.show_message(duration_list[pointer], scroll_speed=0.05)
+#                 elif event.direction == "middle": # Enter key
+#                     choice = duration_list[pointer]
+#                     sense.clear()
+#                     loop = False
+#     return choice
 
 # overwrite the values in question_mark with the values in all_x
 def change(canvas, paint):
@@ -126,14 +127,14 @@ def update_display(counter, duration):
     '''
     Description:
         Updates the display with the counter and duration
-        
+
     Inputs:
         - counter: Int
         - duration: Str
 
     Outputs:
         - None
-    
+
     '''
     sense.clear()
     string_counter = str(counter)
@@ -167,21 +168,22 @@ def update_display(counter, duration):
 def main():
     '''
     Description:
-        1. Will get the duration and then 
+        1. Will get the duration and then
         2. start the timer
-        
+
     Inputs:
         - None
 
     Outputs:
         - None
-    
+
     '''
     main_loop = True
     halt_button_pressed = False
     get_orientation()
-    duration = get_duration() # string
+    # duration = get_duration() # string
     while main_loop is True:
+        duration_list = ["sec", "min", "hour", "day"]
         counter = 0
         halt_button_pressed = False
         while halt_button_pressed is False:
@@ -193,24 +195,31 @@ def main():
                         halt_button_pressed = True
 
             else:
-                if duration == "sec":
+                if counter < 60:
+                    duration = duration_list[0]
                     update_display(counter, duration)
                     sleep(1)
                     counter += 1
-                elif duration == "min":
+                elif duration == "sec" and counter == 60:
+                    duration = duration_list[1]
+                    counter = 1
                     update_display(counter, duration)
                     sleep(60)
                     counter += 1
-                elif duration == "hour":
+                elif duration == "min" and counter == 60:
+                    duration = duration_list[2]
+                    counter = 1
                     update_display(counter, duration)
                     sleep(3600)
                     counter += 1
-                elif duration == "day":
+                elif duration == "hour" and counter == 24:
+                    duration = duration_list[3]
+                    counter = 1
                     update_display(counter, duration)
                     sleep(86400)
                     counter += 1
                 else:
-                    print("error")
+                    sense.clear(red)
                     break
 
 
