@@ -93,7 +93,7 @@ def get_duration():
                     loop = False
     return choice
 
-# overwrite the values in question_mark with the values in all_x
+
 def change(canvas, paint):
     '''
     Description:
@@ -163,7 +163,6 @@ def update_display(counter, duration):
     #     sense.show_message(str(counter))
 
 
-
 def main():
     '''
     Description:
@@ -179,8 +178,8 @@ def main():
     '''
     main_loop = True
     halt_button_pressed = False
-    get_orientation()
-    duration = get_duration() # string
+    # get_orientation()
+    duration = "sec" # string
     while main_loop is True:
         counter = 0
         halt_button_pressed = False
@@ -192,30 +191,30 @@ def main():
                         counter = 0
                         halt_button_pressed = True
 
-            else:
-                if duration == "sec":
-                    update_display(counter, duration)
-                    sleep(1)
-                    counter += 1
-                elif duration == "min":
-                    update_display(counter, duration)
-                    sleep(60)
-                    counter += 1
-                elif duration == "hour":
-                    update_display(counter, duration)
-                    sleep(3600)
-                    counter += 1
-                elif duration == "day":
-                    update_display(counter, duration)
-                    sleep(86400)
-                    counter += 1
+            while halt_button_pressed is False:
+                update_display(counter, duration)
+                sleep(1)
+                counter += 1
+                if counter == 60 and duration == "sec":
+                  duration = "min"
+                  counter = 1
+                  update_display(counter, duration)
+                  sleep(60)
+                  counter += 1
+                if counter == 60 and duration == "min":
+                  duration = "hour"
+                  counter = 1
+                  update_display(counter, duration)
+                  sleep(3600)
+                  counter += 1  
+                if counter == 24 and duration == "hour":
+                  duration = "day"
+                  counter = 1
+                  update_display(counter, duration)
+                  sleep(86400)
+                  counter += 1
                 else:
-                    print("error")
                     break
-
-
-
-
 
 if __name__ == "__main__":
     main()
